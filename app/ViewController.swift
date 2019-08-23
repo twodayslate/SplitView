@@ -42,6 +42,8 @@ class ViewController: UIViewController {
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[scrollview]-|", options: .alignAllCenterY, metrics: nil, views: ["scrollview": stack]))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollview]|", options: .alignAllCenterY, metrics: nil, views: ["scrollview": stack]))
+        
+        // TODO: make it so this isn't necessary
         toolbar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
     }
 
