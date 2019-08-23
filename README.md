@@ -10,6 +10,12 @@ Resizable Split View, inspired by [Apple's Split View](https://support.apple.com
 
 iOS 11.0+
 
+### CocoaPods
+
+```
+pod 'SplitView', :git => 'https://github.com/twodayslate/SplitView.git'
+```
+
 ## Usage
 
 Using SplitView is easy! Simply create a `SplitView` and add your views to it!
