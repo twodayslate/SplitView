@@ -2,11 +2,37 @@ import Foundation
 import UIKit
 
 open class SplitViewHandle: UIView {
-    
-    public var handle: UIView
-    public var size: CGFloat
+    // MARK: - Properties
+    // MARK: Private
     private var usingDefaultHandle: Bool = false
+    // MARK: Public
+    /// The center view used for grabbing
+    public var handle: UIView
+    /// The width/height of the view
+    public var size: CGFloat
+    /// Used for position tracking
     public var initialOrigin: CGPoint? = nil
+    /// - returns:
+    /// If being dragged returns true, false otherwise
+    public var isBeingUsed = false {
+        didSet {
+            if usingDefaultHandle {
+                if self.isBeingUsed {
+                    DispatchQueue.main.async {
+                        UIView.animate(withDuration: 0.5) {
+                            self.handle.backgroundColor = self.handle.backgroundColor?.withAlphaComponent(0.85)
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        UIView.animate(withDuration: 0.2) {
+                            self.handle.backgroundColor = self.handle.backgroundColor?.withAlphaComponent(0.6)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     public var axis: NSLayoutConstraint.Axis {
         didSet {
@@ -16,16 +42,17 @@ open class SplitViewHandle: UIView {
     
     public var handleConstraints = [NSLayoutConstraint]()
     
-    init(with image: UIImageView? = nil, axis: NSLayoutConstraint.Axis = .vertical, size: CGFloat = 18.0) {
+    // MARK: - Initilizers
+    init(with handle: UIView? = nil, axis: NSLayoutConstraint.Axis = .vertical, size: CGFloat = 18.0) {
         self.axis = axis
         self.size = size
-        if let image = image {
-            handle = image
+        if let newView = handle {
+            self.handle = newView
         } else {
-            handle = UIView()
-            handle.translatesAutoresizingMaskIntoConstraints = false
-            handle.backgroundColor = UIColor.white.withAlphaComponent(0.6)
-            handle.layer.cornerRadius = 4.0
+            self.handle = UIView()
+            self.handle.translatesAutoresizingMaskIntoConstraints = false
+            self.handle.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+            self.handle.layer.cornerRadius = 4.0
             usingDefaultHandle = true
         }
 
@@ -34,13 +61,18 @@ open class SplitViewHandle: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .black
         
-        self.addSubview(handle)
+        self.addSubview(self.handle)
         
-        handle.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        handle.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        self.handle.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        self.handle.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         self.layoutConstraints()
     }
-    
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - View Handling
     open func layoutConstraints() {
         self.removeConstraints(self.handleConstraints)
         handleConstraints.removeAll()
@@ -66,9 +98,5 @@ open class SplitViewHandle: UIView {
         }
         
         self.addConstraints(self.handleConstraints)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

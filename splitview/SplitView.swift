@@ -13,13 +13,13 @@ open class SplitView: UIView {
     // MARK: - Properties
     // MARK: Private
     private let stack = UIStackView()
+    /// Used for snapping
+    private var smallestRatio: CGFloat = 0.02
     
     // MARK: Public
     public var views = [SplitSupportingView]()
     public var handles = [SplitViewHandle]()
     
-    /// The handle's width/size
-    public var handleSize: CGFloat
     /// The minimum width/height ratio for each view
     public var minimumRatio: CGFloat
     /// The animation duration when resizing views
@@ -48,22 +48,21 @@ open class SplitView: UIView {
     
     // MARK: - Initializers
     
-    public init(with views: [UIView]? = nil, axis: NSLayoutConstraint.Axis = .vertical, handleHeight: CGFloat = 18.0, minimumRatio: CGFloat = 0.0) {
-        precondition(handleHeight > 0.0, "Handle height must be positive")
+    public init(with views: [UIView]? = nil, axis: NSLayoutConstraint.Axis = .vertical, minimumRatio: CGFloat = 0.0) {
         precondition(minimumRatio >= 0.0, "minimumRatio must be 0.0 or greater")
         precondition(minimumRatio < 1.0, "minimumRatio must be less than 1.0")
         
         self.minimumRatio = minimumRatio
-        self.handleSize = handleHeight
         self.axis = axis
+        
         super.init(frame: .zero)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = self.axis
         
         self.addSubview(stack)
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[scrollview]|", options: .alignAllCenterY, metrics: nil, views: ["scrollview": stack]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollview]|", options: .alignAllCenterY, metrics: nil, views: ["scrollview": stack]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[stack]|", options: .alignAllCenterY, metrics: nil, views: ["stack": stack]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[stack]|", options: .alignAllCenterY, metrics: nil, views: ["stack": stack]))
         
         if let newViews = views {
             for view in newViews {
@@ -81,7 +80,7 @@ open class SplitView: UIView {
     /// Add a view to your `SplitView`
     /// - warning:
     /// Currently the maximum supported views is 2
-    open func addView(_ view: UIView, ratio: CGFloat = 0.5, minRatio: CGFloat = 0.0) {
+    open func addView(_ view: UIView, ratio: CGFloat = 0.5, minRatio: CGFloat = 0.0, withHandle: SplitViewHandle? = nil) {
         precondition(ratio >= 0.0, "Ratio must be greater than zero")
         precondition(ratio <= 1.0, "Ratio must be less than one")
         
@@ -90,7 +89,8 @@ open class SplitView: UIView {
         views.append(organizer)
         
         if views.count % 2 == 0 {
-            let handle = SplitViewHandle(axis: .vertical, size: self.handleSize)
+            let handle = withHandle ?? SplitViewHandle()
+            handle.axis = self.axis
             handle.translatesAutoresizingMaskIntoConstraints = false
             handles.append(handle)
             stack.addArrangedSubview(handle)
@@ -106,16 +106,26 @@ open class SplitView: UIView {
     }
     
     private func setRatios() {
-        var handleConstant = self.handleSize
+        // TODO: optimize
+        var totalHandleSize: CGFloat = 0.0
+        for handle in self.handles {
+            totalHandleSize += handle.size
+        }
+        
+        // TODO: optimize
+        var count = 0
+        for view in self.views where view.ratio > 0 {
+            count += 1
+        }
+        
+        // TODO: optimize
+        let handleConstant = totalHandleSize/CGFloat(count)
         
         for (i, view) in views.enumerated() {
             views[i].constraint?.isActive = false
             views[i].constraint = nil
             
-            if i >= self.handles.count {
-                handleConstant = 0.0
-            }
-            
+            print("Setting", i, view.ratio, handleConstant)
             // using greaterThanOrEqual to ignore rounding errors
             if self.axis == .vertical {
                 views[i].constraint = NSLayoutConstraint(item: views[i].view, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .height, multiplier: view.ratio, constant: view.ratio > 0.0 ? -handleConstant: 0.0)
@@ -144,7 +154,7 @@ open class SplitView: UIView {
         
         let curMinRatio = max(minimumRatio, organizer.minRatio)
         
-        if ratio <= 0.0 {
+        if ratio <= self.smallestRatio {
             return curMinRatio
         }
         
@@ -160,10 +170,17 @@ open class SplitView: UIView {
     }
     
     private func assignRatios(newRatio: CGFloat, for index: Int) {
-        let secondRatio = 1.0 - newRatio
+        var ratio = newRatio
+        var secondRatio = 1.0 - newRatio
+        
+        if secondRatio < self.smallestRatio {
+            secondRatio = 0.0
+            ratio = 1.0
+        }
+        
         for (i, _) in views.enumerated() {
             if i == index {
-                views[i].ratio = newRatio
+                views[i].ratio = ratio
                 continue
             }
             views[i].ratio = secondRatio
@@ -184,6 +201,7 @@ open class SplitView: UIView {
         switch sender.state {
         case .began:
             handle.initialOrigin = handle.frame.origin
+            handle.isBeingUsed = true
             break
         case .changed:
             var newPoint = handle.initialOrigin!.y + sender.translation(in: handle).y
@@ -212,6 +230,8 @@ open class SplitView: UIView {
             }
             
             break
+        case .ended:
+            handle.isBeingUsed = false
         default:
             break
         }
