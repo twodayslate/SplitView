@@ -7,9 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F6FDDFFA2310313500FBF75E /* splitview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FDDFF02310313400FBF75E /* splitview.framework */; };
+		F6FDDFFA2310313500FBF75E /* SplitView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FDDFF02310313400FBF75E /* SplitView.framework */; };
 		F6FDDFFF2310313500FBF75E /* splitviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDDFFE2310313500FBF75E /* splitviewTests.swift */; };
 		F6FDE0012310313500FBF75E /* splitview.h in Headers */ = {isa = PBXBuildFile; fileRef = F6FDDFF32310313400FBF75E /* splitview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F6FDE00B2310314B00FBF75E /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE00A2310314B00FBF75E /* SplitView.swift */; };
+		F6FDE00D2310315800FBF75E /* SplitViewHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE00C2310315800FBF75E /* SplitViewHandle.swift */; };
+		F6FDE0152310324700FBF75E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE0142310324700FBF75E /* AppDelegate.swift */; };
+		F6FDE0172310324700FBF75E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE0162310324700FBF75E /* ViewController.swift */; };
+		F6FDE01A2310324700FBF75E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6FDE0182310324700FBF75E /* Main.storyboard */; };
+		F6FDE01C2310324A00FBF75E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6FDE01B2310324A00FBF75E /* Assets.xcassets */; };
+		F6FDE01F2310324A00FBF75E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6FDE01D2310324A00FBF75E /* LaunchScreen.storyboard */; };
+		F6FDE028231033C700FBF75E /* SplitView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FDDFF02310313400FBF75E /* SplitView.framework */; };
+		F6FDE029231033C700FBF75E /* SplitView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F6FDDFF02310313400FBF75E /* SplitView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F6FDE02C23104C7500FBF75E /* SplitSupportingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE02B23104C7500FBF75E /* SplitSupportingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,15 +30,46 @@
 			remoteGlobalIDString = F6FDDFEF2310313400FBF75E;
 			remoteInfo = splitview;
 		};
+		F6FDE0242310325100FBF75E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6FDDFE72310313400FBF75E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6FDDFEF2310313400FBF75E;
+			remoteInfo = splitview;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F6FDE02A231033C700FBF75E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F6FDE029231033C700FBF75E /* SplitView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		F6FDDFF02310313400FBF75E /* splitview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = splitview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6FDDFF02310313400FBF75E /* SplitView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SplitView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FDDFF32310313400FBF75E /* splitview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = splitview.h; sourceTree = "<group>"; };
 		F6FDDFF42310313400FBF75E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6FDDFF92310313500FBF75E /* splitviewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = splitviewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FDDFFE2310313500FBF75E /* splitviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splitviewTests.swift; sourceTree = "<group>"; };
 		F6FDE0002310313500FBF75E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6FDE00A2310314B00FBF75E /* SplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
+		F6FDE00C2310315800FBF75E /* SplitViewHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewHandle.swift; sourceTree = "<group>"; };
+		F6FDE0122310324700FBF75E /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6FDE0142310324700FBF75E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F6FDE0162310324700FBF75E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F6FDE0192310324700FBF75E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F6FDE01B2310324A00FBF75E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F6FDE01E2310324A00FBF75E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F6FDE0202310324A00FBF75E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6FDE02B23104C7500FBF75E /* SplitSupportingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitSupportingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +84,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6FDDFFA2310313500FBF75E /* splitview.framework in Frameworks */,
+				F6FDDFFA2310313500FBF75E /* SplitView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6FDE00F2310324700FBF75E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6FDE028231033C700FBF75E /* SplitView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,15 +104,18 @@
 			children = (
 				F6FDDFF22310313400FBF75E /* splitview */,
 				F6FDDFFD2310313500FBF75E /* splitviewTests */,
+				F6FDE0132310324700FBF75E /* app */,
 				F6FDDFF12310313400FBF75E /* Products */,
+				F6FDE026231033AE00FBF75E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		F6FDDFF12310313400FBF75E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F6FDDFF02310313400FBF75E /* splitview.framework */,
+				F6FDDFF02310313400FBF75E /* SplitView.framework */,
 				F6FDDFF92310313500FBF75E /* splitviewTests.xctest */,
+				F6FDE0122310324700FBF75E /* app.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +124,9 @@
 			isa = PBXGroup;
 			children = (
 				F6FDDFF32310313400FBF75E /* splitview.h */,
+				F6FDE00A2310314B00FBF75E /* SplitView.swift */,
+				F6FDE02B23104C7500FBF75E /* SplitSupportingView.swift */,
+				F6FDE00C2310315800FBF75E /* SplitViewHandle.swift */,
 				F6FDDFF42310313400FBF75E /* Info.plist */,
 			);
 			path = splitview;
@@ -84,6 +139,26 @@
 				F6FDE0002310313500FBF75E /* Info.plist */,
 			);
 			path = splitviewTests;
+			sourceTree = "<group>";
+		};
+		F6FDE0132310324700FBF75E /* app */ = {
+			isa = PBXGroup;
+			children = (
+				F6FDE0142310324700FBF75E /* AppDelegate.swift */,
+				F6FDE0162310324700FBF75E /* ViewController.swift */,
+				F6FDE0182310324700FBF75E /* Main.storyboard */,
+				F6FDE01B2310324A00FBF75E /* Assets.xcassets */,
+				F6FDE01D2310324A00FBF75E /* LaunchScreen.storyboard */,
+				F6FDE0202310324A00FBF75E /* Info.plist */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		F6FDE026231033AE00FBF75E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,9 +175,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F6FDDFEF2310313400FBF75E /* splitview */ = {
+		F6FDDFEF2310313400FBF75E /* SplitView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F6FDE0042310313500FBF75E /* Build configuration list for PBXNativeTarget "splitview" */;
+			buildConfigurationList = F6FDE0042310313500FBF75E /* Build configuration list for PBXNativeTarget "SplitView" */;
 			buildPhases = (
 				F6FDDFEB2310313400FBF75E /* Headers */,
 				F6FDDFEC2310313400FBF75E /* Sources */,
@@ -113,9 +188,9 @@
 			);
 			dependencies = (
 			);
-			name = splitview;
+			name = SplitView;
 			productName = splitview;
-			productReference = F6FDDFF02310313400FBF75E /* splitview.framework */;
+			productReference = F6FDDFF02310313400FBF75E /* SplitView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		F6FDDFF82310313500FBF75E /* splitviewTests */ = {
@@ -136,6 +211,25 @@
 			productReference = F6FDDFF92310313500FBF75E /* splitviewTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F6FDE0112310324700FBF75E /* app */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6FDE0212310324A00FBF75E /* Build configuration list for PBXNativeTarget "app" */;
+			buildPhases = (
+				F6FDE00E2310324700FBF75E /* Sources */,
+				F6FDE00F2310324700FBF75E /* Frameworks */,
+				F6FDE0102310324700FBF75E /* Resources */,
+				F6FDE02A231033C700FBF75E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6FDE0252310325100FBF75E /* PBXTargetDependency */,
+			);
+			name = app;
+			productName = app;
+			productReference = F6FDE0122310324700FBF75E /* app.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -148,8 +242,12 @@
 				TargetAttributes = {
 					F6FDDFEF2310313400FBF75E = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 					F6FDDFF82310313500FBF75E = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					F6FDE0112310324700FBF75E = {
 						CreatedOnToolsVersion = 10.3;
 					};
 				};
@@ -160,14 +258,16 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = F6FDDFE62310313400FBF75E;
 			productRefGroup = F6FDDFF12310313400FBF75E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F6FDDFEF2310313400FBF75E /* splitview */,
+				F6FDDFEF2310313400FBF75E /* SplitView */,
 				F6FDDFF82310313500FBF75E /* splitviewTests */,
+				F6FDE0112310324700FBF75E /* app */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +287,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6FDE0102310324700FBF75E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6FDE01F2310324A00FBF75E /* LaunchScreen.storyboard in Resources */,
+				F6FDE01C2310324A00FBF75E /* Assets.xcassets in Resources */,
+				F6FDE01A2310324700FBF75E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -194,6 +304,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6FDE02C23104C7500FBF75E /* SplitSupportingView.swift in Sources */,
+				F6FDE00B2310314B00FBF75E /* SplitView.swift in Sources */,
+				F6FDE00D2310315800FBF75E /* SplitViewHandle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,15 +318,48 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6FDE00E2310324700FBF75E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6FDE0172310324700FBF75E /* ViewController.swift in Sources */,
+				F6FDE0152310324700FBF75E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		F6FDDFFC2310313500FBF75E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F6FDDFEF2310313400FBF75E /* splitview */;
+			target = F6FDDFEF2310313400FBF75E /* SplitView */;
 			targetProxy = F6FDDFFB2310313500FBF75E /* PBXContainerItemProxy */;
 		};
+		F6FDE0252310325100FBF75E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6FDDFEF2310313400FBF75E /* SplitView */;
+			targetProxy = F6FDE0242310325100FBF75E /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F6FDE0182310324700FBF75E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6FDE0192310324700FBF75E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F6FDE01D2310324A00FBF75E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6FDE01E2310324A00FBF75E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F6FDE0022310313500FBF75E /* Debug */ = {
@@ -268,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -326,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -341,14 +487,17 @@
 		F6FDE0052310313500FBF75E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = splitview/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -357,6 +506,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.twodayslate.splitview;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -365,14 +516,17 @@
 		F6FDE0062310313500FBF75E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = splitview/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,6 +535,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.twodayslate.splitview;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -389,6 +544,7 @@
 		F6FDE0082310313500FBF75E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = splitviewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,6 +562,7 @@
 		F6FDE0092310313500FBF75E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = splitviewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -414,6 +571,42 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.twodayslate.splitviewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F6FDE0222310324A00FBF75E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = app/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.twodayslate.splitview.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F6FDE0232310324A00FBF75E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = app/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.twodayslate.splitview.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -432,7 +625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F6FDE0042310313500FBF75E /* Build configuration list for PBXNativeTarget "splitview" */ = {
+		F6FDE0042310313500FBF75E /* Build configuration list for PBXNativeTarget "SplitView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F6FDE0052310313500FBF75E /* Debug */,
@@ -446,6 +639,15 @@
 			buildConfigurations = (
 				F6FDE0082310313500FBF75E /* Debug */,
 				F6FDE0092310313500FBF75E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6FDE0212310324A00FBF75E /* Build configuration list for PBXNativeTarget "app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6FDE0222310324A00FBF75E /* Debug */,
+				F6FDE0232310324A00FBF75E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
