@@ -2,8 +2,9 @@
 
 Resizable Split View, inspired by [Apple's Split View](https://support.apple.com/en-us/HT207582#split) for iPadOS and [SplitKit](https://github.com/macteo/SplitKit)
 
-<img src="./images/vertical.png" width="45%" alt="Vertical"/>
-<img src="./images/horizontal.png" width="45%" alt="Horizontal"/>
+<p align="center">
+<img src="./images/vertical.png" width="25%" alt="Vertical"/> <img src="./images/horizontal.png" width="25%" alt="Horizontal"/>
+</p>
 
 ## Requirements
 
