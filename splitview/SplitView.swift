@@ -39,7 +39,7 @@ open class SplitView: UIView {
                 
                 self.setRatios()
                 
-                UIView.animate(withDuration: self.animationDuration * 6) {
+                UIView.animate(withDuration: self.animationDuration * 2) {
                     self.layoutIfNeeded()
                 }
             }
