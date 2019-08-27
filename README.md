@@ -13,6 +13,11 @@ iOS 11.0+
 ### CocoaPods
 
 ```
+pod 'SplitView'
+```
+
+For the latest updates use:
+```
 pod 'SplitView', :git => 'https://github.com/twodayslate/SplitView.git'
 ```
 
@@ -20,6 +25,8 @@ pod 'SplitView', :git => 'https://github.com/twodayslate/SplitView.git'
 
 Using SplitView is easy! Simply create a `SplitView` and add your views to it!
 ```
+import SplitView
+...
 let mySplitView = SplitView()
 mySplitView.addView(myFirstView)
 mySplitView.addView(mySecondView)
