@@ -20,7 +20,7 @@ A resizable Split View inspired by Apple's Split View for iPadOS
   s.screenshots     = 'https://github.com/twodayslate/SplitView/raw/master/images/horizontal.png', 'https://github.com/twodayslate/SplitView/raw/master/images/vertical.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'twodayslate' => 'zac@gorak.us' }
-  s.source           = { :git => 'https://github.com/twodayslate/SplitViewTest.git', :tag => "v#{s.version}" }
+  s.source           = { :git => 'https://github.com/twodayslate/SplitView.git', :tag => "v#{s.version}" }
   s.social_media_url = 'https://twitter.com/twodayslate'
 
   s.ios.deployment_target = '11.0'
