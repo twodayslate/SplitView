@@ -40,11 +40,8 @@ class ViewController: UIViewController {
         
         self.view.addSubview(stack)
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[scrollview]-|", options: .alignAllCenterY, metrics: nil, views: ["scrollview": stack]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollview]|", options: .alignAllCenterY, metrics: nil, views: ["scrollview": stack]))
-        
-        // TODO: make it so this isn't necessary
-        toolbar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[stack]-|", options: .alignAllCenterY, metrics: nil, views: ["stack": stack]))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[stack]|", options: .alignAllCenterY, metrics: nil, views: ["stack": stack]))
     }
 
     override func viewDidAppear(_ animated: Bool) {
