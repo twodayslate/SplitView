@@ -1,0 +1,124 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitSupportingView.swift",
+      "line": 4,
+      "symbol": "SplitSupportingView",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitSupportingView.swift",
+      "line": 5,
+      "symbol": "SplitSupportingView.view",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitView.swift",
+      "line": 12,
+      "symbol": "SplitView",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitView.swift",
+      "line": 20,
+      "symbol": "SplitView.views",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitView.swift",
+      "line": 21,
+      "symbol": "SplitView.handles",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitView.swift",
+      "line": 46,
+      "symbol": "SplitView.init(with:axis:minimumRatio:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitView.swift",
+      "line": 69,
+      "symbol": "SplitView.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewHandle.swift",
+      "line": 4,
+      "symbol": "SplitViewHandle",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewHandle.swift",
+      "line": 44,
+      "symbol": "SplitViewHandle.axis",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewHandle.swift",
+      "line": 50,
+      "symbol": "SplitViewHandle.handleConstraints",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewHandle.swift",
+      "line": 78,
+      "symbol": "SplitViewHandle.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewHandle.swift",
+      "line": 83,
+      "symbol": "SplitViewHandle.layoutConstraints()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewSnapBehavior.swift",
+      "line": 11,
+      "symbol": "SplitViewSnapPoint",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewSnapBehavior.swift",
+      "line": 18,
+      "symbol": "SplitViewSnapBehavior",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewSnapBehavior.swift",
+      "line": 23,
+      "symbol": "SplitViewSnapBehavior.custom(percentage:tolerance:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewSnapBehavior.swift",
+      "line": 24,
+      "symbol": "SplitViewSnapBehavior.withPoint(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewSnapBehavior.swift",
+      "line": 25,
+      "symbol": "SplitViewSnapBehavior.withPoints(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/twodayslate/Development/splitview"
+}

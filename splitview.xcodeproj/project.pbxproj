@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F6D7E5A1231F463700BED0D9 /* SplitViewSnapBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D7E5A0231F463700BED0D9 /* SplitViewSnapBehavior.swift */; };
 		F6FDDFFA2310313500FBF75E /* SplitView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FDDFF02310313400FBF75E /* SplitView.framework */; };
 		F6FDDFFF2310313500FBF75E /* splitviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDDFFE2310313500FBF75E /* splitviewTests.swift */; };
 		F6FDE0012310313500FBF75E /* splitview.h in Headers */ = {isa = PBXBuildFile; fileRef = F6FDDFF32310313400FBF75E /* splitview.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F6D7E5A0231F463700BED0D9 /* SplitViewSnapBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewSnapBehavior.swift; sourceTree = "<group>"; };
 		F6FDDFF02310313400FBF75E /* SplitView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SplitView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FDDFF32310313400FBF75E /* splitview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = splitview.h; sourceTree = "<group>"; };
 		F6FDDFF42310313400FBF75E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				F6FDDFF32310313400FBF75E /* splitview.h */,
 				F6FDE00A2310314B00FBF75E /* SplitView.swift */,
 				F6FDE02B23104C7500FBF75E /* SplitSupportingView.swift */,
+				F6D7E5A0231F463700BED0D9 /* SplitViewSnapBehavior.swift */,
 				F6FDE00C2310315800FBF75E /* SplitViewHandle.swift */,
 				F6FDDFF42310313400FBF75E /* Info.plist */,
 			);
@@ -307,6 +310,7 @@
 				F6FDE02C23104C7500FBF75E /* SplitSupportingView.swift in Sources */,
 				F6FDE00B2310314B00FBF75E /* SplitView.swift in Sources */,
 				F6FDE00D2310315800FBF75E /* SplitViewHandle.swift in Sources */,
+				F6D7E5A1231F463700BED0D9 /* SplitViewSnapBehavior.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

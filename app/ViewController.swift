@@ -29,7 +29,8 @@ class ViewController: UIViewController {
         stack.addArrangedSubview(toolbar)
         
         toolbar.items = [
-            UIBarButtonItem(title: "Rotate", style: .plain, target: self, action: #selector(rotate(_:)))
+            UIBarButtonItem(title: "Rotate", style: .plain, target: self, action: #selector(rotate(_:))),
+            UIBarButtonItem(title: "Toggle Snapping", style: .plain, target: self, action: #selector(toggleSnap(_:)))
         ]
         
         splitView = SplitView()
@@ -66,6 +67,16 @@ class ViewController: UIViewController {
             self.splitView.axis = .vertical
         } else {
             self.splitView.axis = .horizontal
+        }
+    }
+    
+    @objc func toggleSnap(_ sender: UIBarButtonItem) {
+        if splitView.snap.isEmpty {
+            sender.title = "Turn off Snapping"
+            splitView.snap.append(SplitViewSnapBehavior.quarter)
+        } else {
+            sender.title = "Turn on Snapping"
+            splitView.snap.removeAll()
         }
     }
 }

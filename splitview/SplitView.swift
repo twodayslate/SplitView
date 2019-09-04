@@ -23,25 +23,21 @@ open class SplitView: UIView {
     /// The minimum width/height ratio for each view
     public var minimumRatio: CGFloat
     /// The animation duration when resizing views
-    public var animationDuration: TimeInterval = 0.08
+    public var animationDuration: TimeInterval = 0.2
+    
+    /// Snap Behavior
+    public var snap = [SplitViewSnapBehavior]() {
+        didSet {
+            self.update()
+        }
+    }
     
     /// This property determines the orientation of the arranged views.
     /// Assigning the NSLayoutConstraint.Axis.vertical value creates a column of views.
     /// Assigning the NSLayoutConstraint.Axis.horizontal value creates a row.
     public var axis: NSLayoutConstraint.Axis {
         didSet {
-            
-            self.stack.axis = self.axis
-            
-            for handle in self.handles {
-                handle.axis = self.axis
-            }
-
-            self.setRatios()
-        
-            UIView.animate(withDuration: self.animationDuration) {
-                self.layoutIfNeeded()
-            }
+            self.update()
         }
     }
     
@@ -102,6 +98,20 @@ open class SplitView: UIView {
         
         self.assignRatios(newRatio: self.ratio(given: ratio, for: organizer), for: views.count - 1)
         self.setRatios()
+    }
+    
+    private func update() {
+        self.stack.axis = self.axis
+        
+        for handle in self.handles {
+            handle.axis = self.axis
+        }
+        
+        self.setRatios()
+        
+        UIView.animate(withDuration: self.animationDuration) {
+            self.layoutIfNeeded()
+        }
     }
     
     private func setRatios() {
@@ -178,7 +188,16 @@ open class SplitView: UIView {
     
     private func assignRatios(newRatio: CGFloat, for index: Int) {
         var ratio = newRatio
-        var secondRatio = 1.0 - newRatio
+        
+        for snapBehavior in self.snap {
+            for point in snapBehavior.snapPoints {
+                if ratio > (point.percentage - point.tolerance) && ratio < (point.percentage + point.tolerance) {
+                    ratio = point.percentage
+                }
+            }
+        }
+        
+        var secondRatio = 1.0 - ratio
         
         if secondRatio < self.smallestRatio {
             secondRatio = 0.0
@@ -230,9 +249,8 @@ open class SplitView: UIView {
             views[handleIndex].ratio = self.ratio(given: max(ratio, views[handleIndex].minRatio), for: views[handleIndex])
             self.assignRatios(newRatio: views[handleIndex].ratio, for: handleIndex)
             
-            
+            self.setRatios()
             UIView.animate(withDuration: self.animationDuration) {
-                self.setRatios()
                 self.layoutIfNeeded()
             }
             
