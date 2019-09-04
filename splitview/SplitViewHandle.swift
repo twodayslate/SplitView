@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+/// The seperator/handle that is between each view in a `SplitView`
 open class SplitViewHandle: UIView {
     // MARK: - Properties
     // MARK: Class
@@ -11,7 +12,7 @@ open class SplitViewHandle: UIView {
 
     // MARK: Private
     private var usingDefaultHandle: Bool = false
-
+    
     // MARK: Public
     /// The center view used for grabbing
     public var handle: UIView
@@ -41,13 +42,19 @@ open class SplitViewHandle: UIView {
         }
     }
     
+    /// This property determines the orientation of the arranged views.
+    /// Assigning the `NSLayoutConstraint.Axis.vertical` value creates a column of views.
+    /// Assigning the `NSLayoutConstraint.Axis.horizontal` value creates a row.
     public var axis: NSLayoutConstraint.Axis {
         didSet {
             self.layoutConstraints()
         }
     }
     
-    public var handleConstraints = [NSLayoutConstraint]()
+    /// The current constraints on the handle
+    /// This is used when changing axises and should only be modified
+    /// when overriding
+    private var handleConstraints = [NSLayoutConstraint]()
     
     // MARK: - Initilizers
     init(with handle: UIView? = nil, axis: NSLayoutConstraint.Axis = .vertical, size: CGFloat = SplitViewHandle.defaultSize) {
@@ -80,6 +87,9 @@ open class SplitViewHandle: UIView {
     }
 
     // MARK: - View Handling
+    
+    /// Override this if you are cusomizing your seperator/handle
+    /// Use `handleConstraints` as necessary
     open func layoutConstraints() {
         var tmpHandleConstraints = [NSLayoutConstraint]()
         

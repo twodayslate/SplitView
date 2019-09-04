@@ -8,22 +8,31 @@
 
 import Foundation
 
+/// A structure that contains a snap point that is percentage based and a tolerance for when to snap
 public struct SplitViewSnapPoint: Equatable {
+    /// The point at which to snap
     let percentage: CGFloat
+    /// The amount of range to induce a snap effects
     let tolerance: CGFloat
     
+    /// The global default tolernace
     static var defaultTolerance:CGFloat = 0.03
 }
 
+/// The specefied snap behavior
 public enum SplitViewSnapBehavior: Equatable {
     /// Snap every 25% (0%, 25%, 50%, 75%, 80%) with the default tolerance
     case quarter
     /// Snap every 33% (0%, 33%, 66%, 100%) with a the default tolerance
     case third
+    /// Snap at a given percentage and tolerance
     case custom(percentage: CGFloat, tolerance: CGFloat)
+    /// Snap at a given SnapPoint
     case withPoint(SplitViewSnapPoint)
+    /// Snap at the given SnapPoints
     case withPoints([SplitViewSnapPoint])
     
+    /// The points at which to snap
     var snapPoints: [SplitViewSnapPoint] {
         switch self {
         case .quarter:

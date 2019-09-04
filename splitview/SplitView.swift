@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// Resizable Split View, inspired by [Apple’s Split View](https://support.apple.com/en-us/HT207582#split) for iPadOS and [SplitKit](https://github.com/macteo/SplitKit)
 open class SplitView: UIView {
     // MARK: - Properties
     // MARK: Private
@@ -17,7 +18,9 @@ open class SplitView: UIView {
     private var smallestRatio: CGFloat = 0.02
     
     // MARK: Public
+    /// The views being split
     public var views = [SplitSupportingView]()
+    /// The handles between views
     public var handles = [SplitViewHandle]()
     
     /// The minimum width/height ratio for each view
@@ -33,8 +36,8 @@ open class SplitView: UIView {
     }
     
     /// This property determines the orientation of the arranged views.
-    /// Assigning the NSLayoutConstraint.Axis.vertical value creates a column of views.
-    /// Assigning the NSLayoutConstraint.Axis.horizontal value creates a row.
+    /// Assigning the `NSLayoutConstraint.Axis.vertical` value creates a column of views.
+    /// Assigning the `NSLayoutConstraint.Axis.horizontal` value creates a row.
     public var axis: NSLayoutConstraint.Axis {
         didSet {
             self.update()
