@@ -118,19 +118,9 @@ open class SplitView: UIView {
     }
     
     private func setRatios() {
-        // TODO: optimize
-        var totalHandleSize: CGFloat = 0.0
-        for handle in self.handles {
-            totalHandleSize += handle.size
-        }
+        let totalHandleSize: CGFloat = handles.reduce(0.0) { $0 + $1.size }
+        let count = views.filter({ $0.ratio > 0 }).count
         
-        // TODO: optimize
-        var count = 0
-        for view in self.views where view.ratio > 0 {
-            count += 1
-        }
-        
-        // TODO: optimize
         let handleConstant = totalHandleSize/CGFloat(count)
         
         let original_constraints = views.compactMap({$0.constraint})
