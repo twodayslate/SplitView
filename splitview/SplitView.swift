@@ -195,8 +195,6 @@ open class SplitView: UIView {
         let original_constraints = splitSupportingViews.compactMap({$0.constraint})
         
         for (i, view) in splitSupportingViews.enumerated() {
-            
-            print("Setting", i, view.ratio, handleConstant)
             // using greaterThanOrEqual and lesser ratio to ignore rounding errors
             // also subtracting 0.01 to fix rounding errors
             
@@ -325,9 +323,7 @@ open class SplitView: UIView {
                 newPoint = handle.initialOrigin!.x + sender.translation(in: handle).x
                 curPoint = handle.frame.origin.x
             }
-            
-            print("$$$ start", organizer.ratio, newPoint, curPoint, handleIndex)
-            
+
             var ratio: CGFloat = 0.0
             if curPoint != 0 {
                 ratio = organizer.ratio * (newPoint/curPoint)
@@ -340,9 +336,7 @@ open class SplitView: UIView {
                 ratio = max(ratio, self.minimumRatio)
             }
             
-            print("$$$$ calculated", ratio)
             splitSupportingViews[handleIndex].ratio = self.ratio(given: max(ratio, splitSupportingViews[handleIndex].minRatio), for: splitSupportingViews[handleIndex])
-            print("$$$$$ end", splitSupportingViews[handleIndex].ratio)
             self.assignRatios(newRatio: splitSupportingViews[handleIndex].ratio, for: handleIndex)
             
             self.setRatios()

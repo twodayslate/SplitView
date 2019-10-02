@@ -16,7 +16,7 @@ public struct SplitViewSnapPoint: Equatable {
     let tolerance: CGFloat
     
     /// The global default tolernace
-    static var defaultTolerance:CGFloat = 0.03
+    static var defaultTolerance:CGFloat = 0.04
 }
 
 /// The specefied snap behavior
