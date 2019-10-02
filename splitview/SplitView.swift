@@ -9,14 +9,22 @@
 import Foundation
 import UIKit
 
+
+extension CGFloat
+{
+    /// https://stackoverflow.com/questions/35946499/how-to-truncate-decimals-to-x-places-in-swift
+    func truncate(places : Int)-> CGFloat
+    {
+        return CGFloat(floor(pow(10.0, CGFloat(places)) * self)/pow(10.0, CGFloat(places)))
+    }
+}
+
 /// Resizable Split View, inspired by [Apple’s Split View](https://support.apple.com/en-us/HT207582#split) for iPadOS and [SplitKit](https://github.com/macteo/SplitKit)
 open class SplitView: UIView {
     // MARK: - Properties
     // MARK: Private
     private let stack = UIStackView()
-    /// Used for snapping
-    private var smallestRatio: CGFloat = 0.02
-    
+
     // MARK: Public
     
     /// The list of supporting views split by the split view
@@ -37,6 +45,9 @@ open class SplitView: UIView {
     public var minimumRatio: CGFloat
     /// The animation duration when resizing views
     public var animationDuration: TimeInterval = 0.2
+    
+    /// The precision of the movements. 1 is every 10%, 2 is every 1%, etc
+    public var precision = 5
     
     /// Snap Behavior
     public var snap = [SplitViewSnapBehavior]() {
@@ -190,7 +201,8 @@ open class SplitView: UIView {
             // also subtracting 0.01 to fix rounding errors
             
             let constant = view.ratio > 0.0 ? -handleConstant: 0.0
-            let ratio = max(view.ratio - 0.01, 0.0)
+            let roundingFix = pow(CGFloat(0.1),max(CGFloat(self.precision)+1.0,1.0))
+            let ratio = max(view.ratio - roundingFix, 0.0)
             
             if self.axis == .vertical {
                 splitSupportingViews[i].constraint = NSLayoutConstraint(item: splitSupportingViews[i].view, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .height, multiplier: ratio, constant: constant)
@@ -223,7 +235,7 @@ open class SplitView: UIView {
         
         let curMinRatio = max(minimumRatio, organizer.minRatio)
         
-        if ratio <= self.smallestRatio {
+        if ratio <= curMinRatio {
             return curMinRatio
         }
         
@@ -241,6 +253,13 @@ open class SplitView: UIView {
     private func assignRatios(newRatio: CGFloat, for index: Int) {
         var ratio = newRatio
         
+        var maxRatio: CGFloat = 1.0
+        
+        if splitSupportingViews.count == 1 {
+            splitSupportingViews[0].ratio = maxRatio
+            return
+        }
+        
         for snapBehavior in self.snap {
             for point in snapBehavior.snapPoints {
                 if ratio > (point.percentage - point.tolerance) && ratio < (point.percentage + point.tolerance) {
@@ -248,47 +267,39 @@ open class SplitView: UIView {
                 }
             }
         }
+
+        var closestIndex = index == 0 ? 1 : 0
         
-        if splitSupportingViews.count == 1 {
-            splitSupportingViews[0].ratio = 1.0
-            return
-        }
-        if splitSupportingViews.count == 2 {
-            let closestIndex = index == 0 ? 1 : 0
-            
-            var secondRatio = 1.0 - ratio
-            
-            let secondSmallestRatio = max(self.smallestRatio, splitSupportingViews[closestIndex].minRatio)
-            if secondRatio < self.smallestRatio {
-                secondRatio = secondSmallestRatio
-                ratio = 1.0 - secondRatio
+        if splitSupportingViews.count > 2 {
+            // the handle controls this view and the view above
+            closestIndex = index + 1
+            if closestIndex >= splitSupportingViews.count {
+                closestIndex = index - 1
             }
             
-            splitSupportingViews[index].ratio = ratio
-            splitSupportingViews[closestIndex].ratio = secondRatio
-    
-            return
-        }
-        if splitSupportingViews.count == 3 {
-            // ignore one of the ratios
-            let closestIndex =  index == 0 ? 1 : (index == 1 ? 2 : (index == 2 ? 1 : 0))
-            let farthestIndex = index == 0 ? 2 : (index == 1 ? 0 : (index == 2 ? 0 : 1))
-            
-            let totalRatio = 1.0 - splitSupportingViews[farthestIndex].ratio
-            
-            ratio = ratio * totalRatio
-            var secondRatio = totalRatio - ratio
-            
-            let secondSmallestRatio = max(self.smallestRatio, splitSupportingViews[closestIndex].minRatio)
-            if secondRatio < self.smallestRatio {
-                secondRatio = secondSmallestRatio
-                ratio = totalRatio - secondRatio
+            // XXX: use reducers
+            var ratioTotal: CGFloat = 0.0
+            for (i, support) in splitSupportingViews.enumerated() {
+                if i == index || i == closestIndex {
+                    continue
+                }
+                ratioTotal += support.ratio
             }
-            
-            print("$$$$$$", index, ratio, closestIndex, secondRatio, farthestIndex)
-            splitSupportingViews[index].ratio = ratio
-            splitSupportingViews[closestIndex].ratio = secondRatio
+            maxRatio = maxRatio - ratioTotal
         }
+        
+        ratio = ratio.truncate(places: self.precision)
+        
+        var secondRatio = (maxRatio - ratio).truncate(places: self.precision)
+        
+        let secondSmallestRatio = max(self.minimumRatio, splitSupportingViews[closestIndex].minRatio)
+        if secondRatio < secondSmallestRatio {
+            secondRatio = secondSmallestRatio
+            ratio = maxRatio - secondRatio
+        }
+        
+        splitSupportingViews[index].ratio = ratio
+        splitSupportingViews[closestIndex].ratio = secondRatio
     }
     
     @objc func panHandle(_ sender: UIPanGestureRecognizer) {
