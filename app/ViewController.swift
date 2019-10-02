@@ -30,14 +30,16 @@ class ViewController: UIViewController {
         
         toolbar.items = [
             UIBarButtonItem(title: "Rotate", style: .plain, target: self, action: #selector(rotate(_:))),
-            UIBarButtonItem(title: "Toggle Snapping", style: .plain, target: self, action: #selector(toggleSnap(_:)))
+            UIBarButtonItem(title: "Toggle Snapping", style: .plain, target: self, action: #selector(toggleSnap(_:))),
+            UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addView(_:))),
+            UIBarButtonItem(title: "Remove", style: .plain, target: self, action: #selector(removeView(_:)))
         ]
         
         splitView = SplitView()
         stack.addArrangedSubview(splitView)
         
-        splitView.addView(browser)
-        splitView.addView(label)
+        splitView.addSplitSubview(browser)
+        splitView.addSplitSubview(label)
         
         self.view.addSubview(stack)
         
@@ -78,5 +80,19 @@ class ViewController: UIViewController {
             sender.title = "Turn on Snapping"
             splitView.snap.removeAll()
         }
+    }
+    
+    @objc func addView(_ sender: UIBarButtonItem) {
+        
+        let label = UILabel()
+        label.text = splitView.splitSubviews.count.description
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 50.0)
+        label.adjustsFontSizeToFitWidth = true
+        splitView.addSplitSubview(label)
+    }
+    
+    @objc func removeView(_ sender: UIBarButtonItem) {
+        splitView.removeSplitSubview(splitView.splitSubviews.last!)
     }
 }
