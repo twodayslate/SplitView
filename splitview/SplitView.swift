@@ -142,10 +142,12 @@ open class SplitView: UIView {
         let organizer = splitSupportingViews.remove(at: index)
         
         stack.removeArrangedSubview(organizer.view)
+        organizer.view.removeFromSuperview()
         
         if handles.count > 0 {
             let handle = self.handles.remove(at: max(index-1,0))
             stack.removeArrangedSubview(handle)
+            handle.removeFromSuperview()
         }
         
         self.setRatios()
