@@ -9,17 +9,35 @@
 import Foundation
 import UIKit
 
+
+extension CGFloat
+{
+    /// https://stackoverflow.com/questions/35946499/how-to-truncate-decimals-to-x-places-in-swift
+    func truncate(places : Int)-> CGFloat
+    {
+        return CGFloat(floor(pow(10.0, CGFloat(places)) * self)/pow(10.0, CGFloat(places)))
+    }
+}
+
 /// Resizable Split View, inspired by [Apple’s Split View](https://support.apple.com/en-us/HT207582#split) for iPadOS and [SplitKit](https://github.com/macteo/SplitKit)
 open class SplitView: UIView {
     // MARK: - Properties
     // MARK: Private
     private let stack = UIStackView()
-    /// Used for snapping
-    private var smallestRatio: CGFloat = 0.02
-    
+
     // MARK: Public
+    
+    /// The list of supporting views split by the split view
+    public var splitSupportingViews = [SplitSupportingView]()
+    /// The list of views split by the split view.
+    public var splitSubviews: [UIView] {
+        return self.splitSupportingViews.compactMap({ $0.view })
+    }
     /// The views being split
-    public var views = [SplitSupportingView]()
+    @available(swift, deprecated: 1.3.0, obsoleted: 2.0.0, renamed: "splitSupportingViews")
+    public var views: [SplitSupportingView] {
+        return splitSupportingViews
+    }
     /// The handles between views
     public var handles = [SplitViewHandle]()
     
@@ -27,6 +45,9 @@ open class SplitView: UIView {
     public var minimumRatio: CGFloat
     /// The animation duration when resizing views
     public var animationDuration: TimeInterval = 0.2
+    
+    /// The precision of the movements. 1 is every 10%, 2 is every 1%, etc
+    public var precision = 5
     
     /// Snap Behavior
     public var snap = [SplitViewSnapBehavior]() {
@@ -64,7 +85,7 @@ open class SplitView: UIView {
         
         if let newViews = views {
             for view in newViews {
-                self.addView(view)
+                self.addSplitSubview(view)
             }
         }
     }
@@ -75,32 +96,80 @@ open class SplitView: UIView {
     
     // MARK: - View Handling
     
+    private func addHandle(_ handle: SplitViewHandle, at: Int) {
+        handle.axis = self.axis
+        handle.translatesAutoresizingMaskIntoConstraints = false
+        handles.append(handle)
+        stack.insertArrangedSubview(handle, at: at)
+        
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panHandle(_:)))
+        handle.addGestureRecognizer(gesture)
+    }
+    
+    /// Adds a view to the end of the splitSupportingViews array
+    @available(swift, introduced: 1.3.0)
+    open func addSplitSubview(_ view: UIView, desiredRatio: CGFloat = 0.5, minimumRatio: CGFloat = 0.0, withHandle: SplitViewHandle? = nil) {
+        self.insertSplitSubview(view, at: self.splitSupportingViews.count, desiredRatio: desiredRatio, minimumRatio: minimumRatio, withHandle: withHandle)
+    }
+    
+    /// Adds the provided view to the array of split subviews at the specified index.
+    open func insertSplitSubview(_ view: UIView, at: Int, desiredRatio: CGFloat = 0.5, minimumRatio: CGFloat = 0.0, withHandle: SplitViewHandle? = nil) {
+        precondition(desiredRatio >= 0.0, "Ratio must be greater than zero")
+        precondition(desiredRatio <= 1.0, "Ratio must be less than one")
+        
+        var insertAtIndex = at
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let beforeSize = splitSupportingViews.count
+        
+        let organizer = SplitSupportingView(view: view, ratio: desiredRatio, minRatio: minimumRatio, constraint: nil)
+        splitSupportingViews.insert(organizer, at: at)
+        
+        if beforeSize != 0 && at >= beforeSize {
+            let handle = withHandle ?? SplitViewHandle()
+            insertAtIndex += Int(at / 2)
+            self.addHandle(handle, at: insertAtIndex)
+            insertAtIndex += 1
+        }
+        
+        stack.insertArrangedSubview(organizer.view, at: insertAtIndex)
+        
+        if beforeSize != 0 && at < beforeSize {
+            let handle = withHandle ?? SplitViewHandle()
+            self.addHandle(handle, at: insertAtIndex + 1)
+        }
+        
+        self.assignRatios(newRatio: self.ratio(given: desiredRatio, for: organizer), for: at)
+        self.setRatios()
+    }
+    
+    /// Removes the provided view from the stack’s array of split subviews.
+    open func removeSplitSubview(_ view: UIView) {
+        guard let index = self.splitSubviews.firstIndex(of: view) else {
+            return
+        }
+        
+        let organizer = splitSupportingViews.remove(at: index)
+        
+        stack.removeArrangedSubview(organizer.view)
+        organizer.view.removeFromSuperview()
+        
+        if handles.count > 0 {
+            let handle = self.handles.remove(at: max(index-1,0))
+            stack.removeArrangedSubview(handle)
+            handle.removeFromSuperview()
+        }
+        
+        self.setRatios()
+    }
+    
     /// Add a view to your `SplitView`
     /// - warning:
     /// Currently the maximum supported views is 2
+    @available(swift, deprecated: 1.3.0, obsoleted: 2.0.0, renamed: "addSplitSubview")
     open func addView(_ view: UIView, ratio: CGFloat = 0.5, minRatio: CGFloat = 0.0, withHandle: SplitViewHandle? = nil) {
-        precondition(ratio >= 0.0, "Ratio must be greater than zero")
-        precondition(ratio <= 1.0, "Ratio must be less than one")
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        let organizer = SplitSupportingView(view: view, ratio: ratio, minRatio: minRatio, constraint: nil)
-        views.append(organizer)
-        
-        if views.count % 2 == 0 {
-            let handle = withHandle ?? SplitViewHandle()
-            handle.axis = self.axis
-            handle.translatesAutoresizingMaskIntoConstraints = false
-            handles.append(handle)
-            stack.addArrangedSubview(handle)
-            
-            let gesture = UIPanGestureRecognizer(target: self, action: #selector(panHandle(_:)))
-            handle.addGestureRecognizer(gesture)
-        }
-        
-        stack.addArrangedSubview(organizer.view)
-        
-        self.assignRatios(newRatio: self.ratio(given: ratio, for: organizer), for: views.count - 1)
-        self.setRatios()
+        self.addSplitSubview(view, desiredRatio: ratio, minimumRatio: minRatio, withHandle: withHandle)
     }
     
     private func update() {
@@ -119,40 +188,40 @@ open class SplitView: UIView {
     
     private func setRatios() {
         let totalHandleSize: CGFloat = handles.reduce(0.0) { $0 + $1.size }
-        let count = views.filter({ $0.ratio > 0 }).count
+        let count = splitSupportingViews.filter({ $0.ratio > 0 }).count
         
         let handleConstant = totalHandleSize/CGFloat(count)
         
-        let original_constraints = views.compactMap({$0.constraint})
+        let original_constraints = splitSupportingViews.compactMap({$0.constraint})
         
-        for (i, view) in views.enumerated() {
-            
-            print("Setting", i, view.ratio, handleConstant)
+        for (i, view) in splitSupportingViews.enumerated() {
             // using greaterThanOrEqual and lesser ratio to ignore rounding errors
+            // also subtracting 0.01 to fix rounding errors
             
             let constant = view.ratio > 0.0 ? -handleConstant: 0.0
-            let ratio = max(view.ratio - 0.01, 0.0)
+            let roundingFix = pow(CGFloat(0.1),max(CGFloat(self.precision)+1.0,1.0))
+            let ratio = max(view.ratio - roundingFix, 0.0)
             
             if self.axis == .vertical {
-                views[i].constraint = NSLayoutConstraint(item: views[i].view, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .height, multiplier: ratio, constant: constant)
+                splitSupportingViews[i].constraint = NSLayoutConstraint(item: splitSupportingViews[i].view, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .height, multiplier: ratio, constant: constant)
             } else {
-                 views[i].constraint = NSLayoutConstraint(item: views[i].view, attribute: .width, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .width, multiplier: ratio, constant: constant)
+                 splitSupportingViews[i].constraint = NSLayoutConstraint(item: splitSupportingViews[i].view, attribute: .width, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .width, multiplier: ratio, constant: constant)
             }
         }
         
-        let new_constraints = views.compactMap({$0.constraint})
+        let new_constraints = splitSupportingViews.compactMap({$0.constraint})
         
         NSLayoutConstraint.deactivate(original_constraints)
         NSLayoutConstraint.activate(new_constraints)
     }
     
     private func ratio(given ratio: CGFloat, for organizer: SplitSupportingView)->CGFloat {
-        if views.count == 1 {
+        if splitSupportingViews.count == 1 {
             return 1.0
         }
         
         var minRatio: CGFloat = 0.0
-        for view in views {
+        for view in splitSupportingViews {
             if view == organizer {
                 continue
             }
@@ -164,7 +233,7 @@ open class SplitView: UIView {
         
         let curMinRatio = max(minimumRatio, organizer.minRatio)
         
-        if ratio <= self.smallestRatio {
+        if ratio <= curMinRatio {
             return curMinRatio
         }
         
@@ -182,6 +251,13 @@ open class SplitView: UIView {
     private func assignRatios(newRatio: CGFloat, for index: Int) {
         var ratio = newRatio
         
+        var maxRatio: CGFloat = 1.0
+        
+        if splitSupportingViews.count == 1 {
+            splitSupportingViews[0].ratio = maxRatio
+            return
+        }
+        
         for snapBehavior in self.snap {
             for point in snapBehavior.snapPoints {
                 if ratio > (point.percentage - point.tolerance) && ratio < (point.percentage + point.tolerance) {
@@ -189,21 +265,39 @@ open class SplitView: UIView {
                 }
             }
         }
+
+        var closestIndex = index == 0 ? 1 : 0
         
-        var secondRatio = 1.0 - ratio
-        
-        if secondRatio < self.smallestRatio {
-            secondRatio = 0.0
-            ratio = 1.0
-        }
-        
-        for (i, _) in views.enumerated() {
-            if i == index {
-                views[i].ratio = ratio
-                continue
+        if splitSupportingViews.count > 2 {
+            // the handle controls this view and the view above
+            closestIndex = index + 1
+            if closestIndex >= splitSupportingViews.count {
+                closestIndex = index - 1
             }
-            views[i].ratio = secondRatio
+            
+            // XXX: use reducers
+            var ratioTotal: CGFloat = 0.0
+            for (i, support) in splitSupportingViews.enumerated() {
+                if i == index || i == closestIndex {
+                    continue
+                }
+                ratioTotal += support.ratio
+            }
+            maxRatio = maxRatio - ratioTotal
         }
+        
+        ratio = ratio.truncate(places: self.precision)
+        
+        var secondRatio = (maxRatio - ratio).truncate(places: self.precision)
+        
+        let secondSmallestRatio = max(self.minimumRatio, splitSupportingViews[closestIndex].minRatio)
+        if secondRatio < secondSmallestRatio {
+            secondRatio = secondSmallestRatio
+            ratio = maxRatio - secondRatio
+        }
+        
+        splitSupportingViews[index].ratio = ratio
+        splitSupportingViews[closestIndex].ratio = secondRatio
     }
     
     @objc func panHandle(_ sender: UIPanGestureRecognizer) {
@@ -215,7 +309,7 @@ open class SplitView: UIView {
             return
         }
         
-        let organizer = views[handleIndex]
+        let organizer = splitSupportingViews[handleIndex]
         
         switch sender.state {
         case .began:
@@ -229,18 +323,21 @@ open class SplitView: UIView {
                 newPoint = handle.initialOrigin!.x + sender.translation(in: handle).x
                 curPoint = handle.frame.origin.x
             }
-            
+
             var ratio: CGFloat = 0.0
             if curPoint != 0 {
                 ratio = organizer.ratio * (newPoint/curPoint)
             } else {
-                ratio = newPoint/stack.frame.width
+                ratio = newPoint/stack.frame.height
                 if self.axis == .horizontal {
-                    ratio = newPoint/stack.frame.height
+                    ratio = newPoint/stack.frame.width
                 }
+                
+                ratio = max(ratio, self.minimumRatio)
             }
-            views[handleIndex].ratio = self.ratio(given: max(ratio, views[handleIndex].minRatio), for: views[handleIndex])
-            self.assignRatios(newRatio: views[handleIndex].ratio, for: handleIndex)
+            
+            splitSupportingViews[handleIndex].ratio = self.ratio(given: max(ratio, splitSupportingViews[handleIndex].minRatio), for: splitSupportingViews[handleIndex])
+            self.assignRatios(newRatio: splitSupportingViews[handleIndex].ratio, for: handleIndex)
             
             self.setRatios()
             UIView.animate(withDuration: self.animationDuration) {

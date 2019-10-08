@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SplitView'
-  s.version          = '1.2.0'
+  s.version          = '1.3.0'
   s.summary          = 'A resizable Split View'
   s.swift_versions   = ['5.0']
 
