@@ -1,40 +1,6 @@
 {
   "warnings": [
-    {
-      "file": "/Users/twodayslate/Development/splitview/splitview/SplitSupportingView.swift",
-      "line": 4,
-      "symbol": "SplitSupportingView",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/twodayslate/Development/splitview/splitview/SplitSupportingView.swift",
-      "line": 5,
-      "symbol": "SplitSupportingView.view",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/twodayslate/Development/splitview/splitview/SplitView.swift",
-      "line": 49,
-      "symbol": "SplitView.init(with:axis:minimumRatio:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/twodayslate/Development/splitview/splitview/SplitView.swift",
-      "line": 72,
-      "symbol": "SplitView.init(coder:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/twodayslate/Development/splitview/splitview/SplitViewHandle.swift",
-      "line": 85,
-      "symbol": "SplitViewHandle.init(coder:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    }
+
   ],
   "source_directory": "/Users/twodayslate/Development/splitview"
 }
