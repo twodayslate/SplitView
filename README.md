@@ -23,13 +23,14 @@ pod 'SplitView', :git => 'https://github.com/twodayslate/SplitView.git'
 
 ## Usage
 
-Using SplitView is easy! Simply create a `SplitView` and add your views to it!
+Using SplitView is easy! Simply create a `SplitView` and add your views to it - just like a `UIStackView`.
+
 ```
 import SplitView
 ...
 let mySplitView = SplitView()
-mySplitView.addView(myFirstView)
-mySplitView.addView(mySecondView)
+mySplitView.addSplitSubview(myFirstView)
+mySplitView.addSplitSubview(mySecondView)
 ```
 
 There are certain customizations available including minimum sizing and snapping.
