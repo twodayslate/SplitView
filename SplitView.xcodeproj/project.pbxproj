@@ -10,7 +10,7 @@
 		F6D7E5A1231F463700BED0D9 /* SplitViewSnapBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D7E5A0231F463700BED0D9 /* SplitViewSnapBehavior.swift */; };
 		F6FDDFFA2310313500FBF75E /* SplitView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FDDFF02310313400FBF75E /* SplitView.framework */; };
 		F6FDDFFF2310313500FBF75E /* splitviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDDFFE2310313500FBF75E /* splitviewTests.swift */; };
-		F6FDE0012310313500FBF75E /* splitview.h in Headers */ = {isa = PBXBuildFile; fileRef = F6FDDFF32310313400FBF75E /* splitview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F6FDE0012310313500FBF75E /* SplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = F6FDDFF32310313400FBF75E /* SplitView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F6FDE00B2310314B00FBF75E /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE00A2310314B00FBF75E /* SplitView.swift */; };
 		F6FDE00D2310315800FBF75E /* SplitViewHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE00C2310315800FBF75E /* SplitViewHandle.swift */; };
 		F6FDE0152310324700FBF75E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FDE0142310324700FBF75E /* AppDelegate.swift */; };
@@ -57,9 +57,9 @@
 /* Begin PBXFileReference section */
 		F6D7E5A0231F463700BED0D9 /* SplitViewSnapBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewSnapBehavior.swift; sourceTree = "<group>"; };
 		F6FDDFF02310313400FBF75E /* SplitView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SplitView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F6FDDFF32310313400FBF75E /* splitview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = splitview.h; sourceTree = "<group>"; };
+		F6FDDFF32310313400FBF75E /* SplitView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitView.h; sourceTree = "<group>"; };
 		F6FDDFF42310313400FBF75E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6FDDFF92310313500FBF75E /* splitviewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = splitviewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6FDDFF92310313500FBF75E /* SplitViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FDDFFE2310313500FBF75E /* splitviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splitviewTests.swift; sourceTree = "<group>"; };
 		F6FDE0002310313500FBF75E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6FDE00A2310314B00FBF75E /* SplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 		F6FDDFE62310313400FBF75E = {
 			isa = PBXGroup;
 			children = (
-				F6FDDFF22310313400FBF75E /* splitview */,
+				F6FDDFF22310313400FBF75E /* SplitView */,
 				F6FDDFFD2310313500FBF75E /* splitviewTests */,
 				F6FDE0132310324700FBF75E /* app */,
 				F6FDDFF12310313400FBF75E /* Products */,
@@ -116,23 +116,23 @@
 			isa = PBXGroup;
 			children = (
 				F6FDDFF02310313400FBF75E /* SplitView.framework */,
-				F6FDDFF92310313500FBF75E /* splitviewTests.xctest */,
+				F6FDDFF92310313500FBF75E /* SplitViewTests.xctest */,
 				F6FDE0122310324700FBF75E /* app.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F6FDDFF22310313400FBF75E /* splitview */ = {
+		F6FDDFF22310313400FBF75E /* SplitView */ = {
 			isa = PBXGroup;
 			children = (
-				F6FDDFF32310313400FBF75E /* splitview.h */,
+				F6FDDFF32310313400FBF75E /* SplitView.h */,
 				F6FDE00A2310314B00FBF75E /* SplitView.swift */,
 				F6FDE02B23104C7500FBF75E /* SplitSupportingView.swift */,
 				F6D7E5A0231F463700BED0D9 /* SplitViewSnapBehavior.swift */,
 				F6FDE00C2310315800FBF75E /* SplitViewHandle.swift */,
 				F6FDDFF42310313400FBF75E /* Info.plist */,
 			);
-			path = splitview;
+			path = SplitView;
 			sourceTree = "<group>";
 		};
 		F6FDDFFD2310313500FBF75E /* splitviewTests */ = {
@@ -171,7 +171,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6FDE0012310313500FBF75E /* splitview.h in Headers */,
+				F6FDE0012310313500FBF75E /* SplitView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,9 +196,9 @@
 			productReference = F6FDDFF02310313400FBF75E /* SplitView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		F6FDDFF82310313500FBF75E /* splitviewTests */ = {
+		F6FDDFF82310313500FBF75E /* SplitViewTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F6FDE0072310313500FBF75E /* Build configuration list for PBXNativeTarget "splitviewTests" */;
+			buildConfigurationList = F6FDE0072310313500FBF75E /* Build configuration list for PBXNativeTarget "SplitViewTests" */;
 			buildPhases = (
 				F6FDDFF52310313500FBF75E /* Sources */,
 				F6FDDFF62310313500FBF75E /* Frameworks */,
@@ -209,9 +209,9 @@
 			dependencies = (
 				F6FDDFFC2310313500FBF75E /* PBXTargetDependency */,
 			);
-			name = splitviewTests;
+			name = SplitViewTests;
 			productName = splitviewTests;
-			productReference = F6FDDFF92310313500FBF75E /* splitviewTests.xctest */;
+			productReference = F6FDDFF92310313500FBF75E /* SplitViewTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		F6FDE0112310324700FBF75E /* app */ = {
@@ -255,7 +255,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F6FDDFEA2310313400FBF75E /* Build configuration list for PBXProject "splitview" */;
+			buildConfigurationList = F6FDDFEA2310313400FBF75E /* Build configuration list for PBXProject "SplitView" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -269,7 +269,7 @@
 			projectRoot = "";
 			targets = (
 				F6FDDFEF2310313400FBF75E /* SplitView */,
-				F6FDDFF82310313500FBF75E /* splitviewTests */,
+				F6FDDFF82310313500FBF75E /* SplitViewTests */,
 				F6FDE0112310324700FBF75E /* app */,
 			);
 		};
@@ -622,7 +622,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F6FDDFEA2310313400FBF75E /* Build configuration list for PBXProject "splitview" */ = {
+		F6FDDFEA2310313400FBF75E /* Build configuration list for PBXProject "SplitView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F6FDE0022310313500FBF75E /* Debug */,
@@ -640,7 +640,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F6FDE0072310313500FBF75E /* Build configuration list for PBXNativeTarget "splitviewTests" */ = {
+		F6FDE0072310313500FBF75E /* Build configuration list for PBXNativeTarget "SplitViewTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F6FDE0082310313500FBF75E /* Debug */,
