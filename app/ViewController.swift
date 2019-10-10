@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     let browser = WKWebView()
     let label = UITextView()
+    let removeButton = UIBarButtonItem(title: "Remove", style: .plain, target: self, action: #selector(removeView(_:)))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
             UIBarButtonItem(title: "Rotate", style: .plain, target: self, action: #selector(rotate(_:))),
             UIBarButtonItem(title: "Toggle Snapping", style: .plain, target: self, action: #selector(toggleSnap(_:))),
             UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addView(_:))),
-            UIBarButtonItem(title: "Remove", style: .plain, target: self, action: #selector(removeView(_:)))
+            removeButton
         ]
         
         splitView = SplitView()
@@ -90,9 +91,14 @@ class ViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 50.0)
         label.adjustsFontSizeToFitWidth = true
         splitView.addSplitSubview(label)
+        
+        removeButton.isEnabled = true
     }
     
     @objc func removeView(_ sender: UIBarButtonItem) {
         splitView.removeSplitSubview(splitView.splitSubviews.last!)
+        if splitView.splitSubviews.count <= 0 {
+            removeButton.isEnabled = false
+        }
     }
 }
