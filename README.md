@@ -10,6 +10,17 @@ Resizable Split View, inspired by [Apple's Split View](https://support.apple.com
 
 iOS 11.0+
 
+### Swift Package Manager (SPM)
+
+```
+.Package(url: "https://github.com/twodayslate/SplitView.git", majorVersion: 1)
+```
+
+For the latest updates use:
+```
+.Package(url: "https://github.com/twodayslate/SplitView.git", branch: "development")
+```
+
 ### CocoaPods
 
 ```

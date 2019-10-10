@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.name             = 'SplitView'
   s.version          = '1.3.0'
   s.summary          = 'A resizable Split View'
-  s.swift_versions   = ['5.0']
+  s.swift_versions   = ['4.2', '5.0', '5.1']
 
   s.description      = <<-DESC
 A resizable Split View inspired by Apple's Split View for iPadOS
@@ -24,6 +24,7 @@ A resizable Split View inspired by Apple's Split View for iPadOS
   s.social_media_url = 'https://twitter.com/twodayslate'
 
   s.ios.deployment_target = '11.0'
+  #s.osx.deployment_target = '10.15'
 
   s.source_files = 'SplitView/*'
   s.exclude_files = [ 'SplitView/Info.plist']
