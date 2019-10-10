@@ -40,6 +40,13 @@ class ViewController: UIViewController {
         splitView.backgroundColor = .black
         stack.addArrangedSubview(splitView)
         
+        browser.layer.cornerRadius = 15.0
+        browser.backgroundColor = .systemBackground
+        browser.layer.masksToBounds = true
+        label.backgroundColor = .systemBackground
+        label.layer.cornerRadius = 15.0
+        label.layer.masksToBounds = true
+        
         splitView.addSplitSubview(browser)
         splitView.addSplitSubview(label)
         
@@ -93,6 +100,7 @@ class ViewController: UIViewController {
         label.adjustsFontSizeToFitWidth = true
         label.backgroundColor = .systemBackground
         label.layer.cornerRadius = 15.0
+        label.layer.masksToBounds = true
         
         splitView.addSplitSubview(label)
         
