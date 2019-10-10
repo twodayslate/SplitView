@@ -18,7 +18,7 @@ iOS 11.0+
 
 For the latest updates use:
 ```
-.Package(url: "https://github.com/twodayslate/SplitView.git", branch: "development")
+.Package(url: "https://github.com/twodayslate/SplitView.git", branch: "master")
 ```
 
 ### CocoaPods
