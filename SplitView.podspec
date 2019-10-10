@@ -25,8 +25,8 @@ A resizable Split View inspired by Apple's Split View for iPadOS
 
   s.ios.deployment_target = '11.0'
 
-  s.source_files = 'splitview/*'
-  s.exclude_files = [ 'splitview/Info.plist']
+  s.source_files = 'SplitView/*'
+  s.exclude_files = [ 'SplitView/Info.plist']
 
   s.public_header_files = 'splitview/*.h'
   s.frameworks = 'UIKit'

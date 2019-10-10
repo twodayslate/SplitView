@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				F6FDDFF22310313400FBF75E /* SplitView */,
-				F6FDDFFD2310313500FBF75E /* splitviewTests */,
+				F6FDDFFD2310313500FBF75E /* SplitviewTests */,
 				F6FDE0132310324700FBF75E /* app */,
 				F6FDDFF12310313400FBF75E /* Products */,
 				F6FDE026231033AE00FBF75E /* Frameworks */,
@@ -136,13 +136,13 @@
 			path = SplitView;
 			sourceTree = "<group>";
 		};
-		F6FDDFFD2310313500FBF75E /* splitviewTests */ = {
+		F6FDDFFD2310313500FBF75E /* SplitviewTests */ = {
 			isa = PBXGroup;
 			children = (
 				F6FDDFFE2310313500FBF75E /* splitviewTests.swift */,
 				F6FDE0002310313500FBF75E /* Info.plist */,
 			);
-			path = splitviewTests;
+			path = SplitviewTests;
 			sourceTree = "<group>";
 		};
 		F6FDE0132310324700FBF75E /* app */ = {
