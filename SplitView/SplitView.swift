@@ -121,7 +121,7 @@ open class SplitView: UIView {
     private func addHandle(_ handle: SplitViewHandle, at: Int) {
         handle.axis = self.axis
         handle.translatesAutoresizingMaskIntoConstraints = false
-        handles.append(handle)
+        handles.append(handle) // XXX: make sure this is in the right order
         stack.insertArrangedSubview(handle, at: at)
         
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panHandle(_:)))
@@ -150,7 +150,7 @@ open class SplitView: UIView {
         
         if beforeSize != 0 && at >= beforeSize {
             let handle = withHandle ?? SplitViewHandle.useDefault()
-            insertAtIndex += Int(at / 2)
+            insertAtIndex = self.stack.arrangedSubviews.count
             self.addHandle(handle, at: insertAtIndex)
             insertAtIndex += 1
         }
@@ -207,8 +207,9 @@ open class SplitView: UIView {
     }
     
     private func setRatios() {
+        let minimumRatioToHoldHandle: CGFloat = 0.01
         let totalHandleSize: CGFloat = handles.reduce(0.0) { $0 + $1.size }
-        let count = splitSupportingViews.filter({ $0.ratio > 0 }).count
+        let count = splitSupportingViews.filter({ $0.ratio > minimumRatioToHoldHandle }).count
         
         let handleConstant = totalHandleSize/CGFloat(count)
         
@@ -218,9 +219,11 @@ open class SplitView: UIView {
             // using greaterThanOrEqual and lesser ratio to ignore rounding errors
             // also subtracting 0.01 to fix rounding errors
             
-            let constant = view.ratio > 0.0 ? -handleConstant: 0.0
-            let roundingFix = pow(CGFloat(0.1),max(CGFloat(self.precision)+1.0,1.0))
+            let constant = view.ratio > minimumRatioToHoldHandle ? -handleConstant: 0.0
+            let roundingFix = pow(CGFloat(0.1),max(CGFloat(self.precision),1.0))
             let ratio = max(view.ratio - roundingFix, 0.0)
+            
+            print("set", i, ratio, constant)
             
             if self.axis == .vertical {
                 splitSupportingViews[i].constraint = NSLayoutConstraint(item: splitSupportingViews[i].view, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .height, multiplier: ratio, constant: constant)
@@ -306,15 +309,18 @@ open class SplitView: UIView {
             maxRatio = maxRatio - ratioTotal
         }
         
-        ratio = ratio.truncate(places: self.precision)
+        var secondRatio = (maxRatio - ratio)
         
-        var secondRatio = (maxRatio - ratio).truncate(places: self.precision)
+        print(index, ratio, closestIndex, secondRatio)
         
         let secondSmallestRatio = max(self.minimumRatio, splitSupportingViews[closestIndex].minRatio)
         if secondRatio < secondSmallestRatio {
             secondRatio = secondSmallestRatio
             ratio = maxRatio - secondRatio
         }
+        
+        ratio = ratio.truncate(places: self.precision)
+        secondRatio = secondRatio.truncate(places: self.precision)
         
         splitSupportingViews[index].ratio = ratio
         splitSupportingViews[closestIndex].ratio = secondRatio
@@ -346,7 +352,11 @@ open class SplitView: UIView {
 
             var ratio: CGFloat = 0.0
             if curPoint != 0 {
-                ratio = organizer.ratio * (newPoint/curPoint)
+                if organizer.ratio <= 0 {
+                    ratio = max(0.0, 1 - (newPoint/curPoint))
+                } else {
+                    ratio = organizer.ratio * (newPoint/curPoint)
+                }
             } else {
                 ratio = newPoint/stack.frame.height
                 if self.axis == .horizontal {
@@ -355,7 +365,7 @@ open class SplitView: UIView {
                 
                 ratio = max(ratio, self.minimumRatio)
             }
-            
+            print(ratio)
             splitSupportingViews[handleIndex].ratio = self.ratio(given: max(ratio, splitSupportingViews[handleIndex].minRatio), for: splitSupportingViews[handleIndex])
             self.assignRatios(newRatio: splitSupportingViews[handleIndex].ratio, for: handleIndex)
             
