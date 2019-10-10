@@ -48,8 +48,8 @@ open class SplitView: UIView {
     /// The animation duration when resizing views
     ///
     /// If you specify a negative value or 0, the changes are made without animating them.
-    /// The default is 0.2 seconds
-    public var animationDuration: TimeInterval = 0.2
+    /// The default is 0.0 seconds
+    public var animationDuration: TimeInterval = 0.0
     
     /// The precision of the movements. 1 is every 10%, 2 is every 1%, etc
     ///
@@ -220,11 +220,8 @@ open class SplitView: UIView {
             // also subtracting 0.01 to fix rounding errors
             
             let constant = view.ratio > minimumRatioToHoldHandle ? -handleConstant: 0.0
-            let roundingFix = pow(CGFloat(0.1),max(CGFloat(self.precision),1.0))
-            let ratio = max(view.ratio - roundingFix, 0.0)
-            
-            print("set", i, ratio, constant)
-            
+            let ratio = max(view.ratio, 0.0)
+                        
             if self.axis == .vertical {
                 splitSupportingViews[i].constraint = NSLayoutConstraint(item: splitSupportingViews[i].view, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: stack, attribute: .height, multiplier: ratio, constant: constant)
             } else {
@@ -310,9 +307,7 @@ open class SplitView: UIView {
         }
         
         var secondRatio = (maxRatio - ratio)
-        
-        print(index, ratio, closestIndex, secondRatio)
-        
+                
         let secondSmallestRatio = max(self.minimumRatio, splitSupportingViews[closestIndex].minRatio)
         if secondRatio < secondSmallestRatio {
             secondRatio = secondSmallestRatio
@@ -353,7 +348,7 @@ open class SplitView: UIView {
             var ratio: CGFloat = 0.0
             if curPoint != 0 {
                 if organizer.ratio <= 0 {
-                    ratio = max(0.0, 1 - (newPoint/curPoint))
+                    ratio = max(0.0, (newPoint/curPoint) - 1.0)
                 } else {
                     ratio = organizer.ratio * (newPoint/curPoint)
                 }
@@ -365,7 +360,7 @@ open class SplitView: UIView {
                 
                 ratio = max(ratio, self.minimumRatio)
             }
-            print(ratio)
+
             splitSupportingViews[handleIndex].ratio = self.ratio(given: max(ratio, splitSupportingViews[handleIndex].minRatio), for: splitSupportingViews[handleIndex])
             self.assignRatios(newRatio: splitSupportingViews[handleIndex].ratio, for: handleIndex)
             

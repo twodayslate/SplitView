@@ -37,6 +37,7 @@ class ViewController: UIViewController {
         ]
         
         splitView = SplitView()
+        splitView.backgroundColor = .black
         stack.addArrangedSubview(splitView)
         
         splitView.addSplitSubview(browser)
@@ -90,6 +91,9 @@ class ViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 50.0)
         label.adjustsFontSizeToFitWidth = true
+        label.backgroundColor = .systemBackground
+        label.layer.cornerRadius = 15.0
+        
         splitView.addSplitSubview(label)
         
         removeButton.isEnabled = true
