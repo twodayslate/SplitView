@@ -11,12 +11,12 @@ import Foundation
 /// A structure that contains a snap point that is percentage based and a tolerance for when to snap
 public struct SplitViewSnapPoint: Equatable {
     /// The point at which to snap
-    let percentage: CGFloat
+    public let percentage: CGFloat
     /// The amount of range to induce a snap effects
-    let tolerance: CGFloat
+    public let tolerance: CGFloat
     
     /// The global default tolernace
-    static var defaultTolerance:CGFloat = 0.04
+    public static var defaultTolerance:CGFloat = 0.04
 }
 
 /// The specefied snap behavior

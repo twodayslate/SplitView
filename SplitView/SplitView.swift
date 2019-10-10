@@ -22,31 +22,38 @@ extension CGFloat
 /// Resizable Split View, inspired by [Apple’s Split View](https://support.apple.com/en-us/HT207582#split) for iPadOS and [SplitKit](https://github.com/macteo/SplitKit)
 open class SplitView: UIView {
     // MARK: - Properties
-    // MARK: Private
+    // MARK: Private and internal
     private let stack = UIStackView()
 
-    // MARK: Public
-    
     /// The list of supporting views split by the split view
-    public var splitSupportingViews = [SplitSupportingView]()
+    internal var splitSupportingViews = [SplitSupportingView]()
+    
+    // MARK: Public
+
     /// The list of views split by the split view.
     public var splitSubviews: [UIView] {
         return self.splitSupportingViews.compactMap({ $0.view })
-    }
-    /// The views being split
-    @available(swift, deprecated: 1.3.0, obsoleted: 2.0.0, renamed: "splitSupportingViews")
-    public var views: [SplitSupportingView] {
-        return splitSupportingViews
     }
     /// The handles between views
     public var handles = [SplitViewHandle]()
     
     /// The minimum width/height ratio for each view
-    public var minimumRatio: CGFloat
+    ///
+    /// The default is 0.0
+    public var minimumRatio: CGFloat {
+        didSet {
+            self.update()
+        }
+    }
     /// The animation duration when resizing views
+    ///
+    /// If you specify a negative value or 0, the changes are made without animating them.
+    /// The default is 0.2 seconds
     public var animationDuration: TimeInterval = 0.2
     
     /// The precision of the movements. 1 is every 10%, 2 is every 1%, etc
+    ///
+    /// The default is 5
     public var precision = 5
     
     /// Snap Behavior
@@ -56,9 +63,12 @@ open class SplitView: UIView {
         }
     }
     
-    /// This property determines the orientation of the arranged views.
+    /// The axis along which the split views are laid out.
+    ///
+    /// This property determines the orientation of the split views.
     /// Assigning the `NSLayoutConstraint.Axis.vertical` value creates a column of views.
     /// Assigning the `NSLayoutConstraint.Axis.horizontal` value creates a row.
+    /// The default value is `NSLayoutConstraint.Axis.horizontal`.
     public var axis: NSLayoutConstraint.Axis {
         didSet {
             self.update()
@@ -67,29 +77,41 @@ open class SplitView: UIView {
     
     // MARK: - Initializers
     
-    public init(with views: [UIView]? = nil, axis: NSLayoutConstraint.Axis = .vertical, minimumRatio: CGFloat = 0.0) {
-        precondition(minimumRatio >= 0.0, "minimumRatio must be 0.0 or greater")
-        precondition(minimumRatio < 1.0, "minimumRatio must be less than 1.0")
+    public override init(frame: CGRect) {
+        self.minimumRatio = 0.0
+        self.axis = .horizontal
         
-        self.minimumRatio = minimumRatio
-        self.axis = axis
-        
-        super.init(frame: .zero)
+        super.init(frame: frame)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fill
+        stack.spacing = 0.0
+        stack.alignment = .fill
         stack.axis = self.axis
         
         self.addSubview(stack)
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[stack]|", options: .alignAllCenterY, metrics: nil, views: ["stack": stack]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[stack]|", options: .alignAllCenterY, metrics: nil, views: ["stack": stack]))
+    }
+    
+    public convenience init() {
+        self.init(frame: .zero)
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    /// Returns a new split view object that manages the provided views.
+    /// - parameters:
+    ///   - splitSubviews: The views to be split by the split view.
+    public convenience init(splitSubviews: [UIView]) {
+        self.init(frame: .zero)
         
-        if let newViews = views {
-            for view in newViews {
-                self.addSplitSubview(view)
-            }
+        for view in splitSubviews {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            self.addSplitSubview(view)
         }
     }
     
+    /// Not implemented
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -127,7 +149,7 @@ open class SplitView: UIView {
         splitSupportingViews.insert(organizer, at: at)
         
         if beforeSize != 0 && at >= beforeSize {
-            let handle = withHandle ?? SplitViewHandle()
+            let handle = withHandle ?? SplitViewHandle.useDefault()
             insertAtIndex += Int(at / 2)
             self.addHandle(handle, at: insertAtIndex)
             insertAtIndex += 1
@@ -136,7 +158,7 @@ open class SplitView: UIView {
         stack.insertArrangedSubview(organizer.view, at: insertAtIndex)
         
         if beforeSize != 0 && at < beforeSize {
-            let handle = withHandle ?? SplitViewHandle()
+            let handle = withHandle ?? SplitViewHandle.useDefault()
             self.addHandle(handle, at: insertAtIndex + 1)
         }
         
@@ -165,8 +187,6 @@ open class SplitView: UIView {
     }
     
     /// Add a view to your `SplitView`
-    /// - warning:
-    /// Currently the maximum supported views is 2
     @available(swift, deprecated: 1.3.0, obsoleted: 2.0.0, renamed: "addSplitSubview")
     open func addView(_ view: UIView, ratio: CGFloat = 0.5, minRatio: CGFloat = 0.0, withHandle: SplitViewHandle? = nil) {
         self.addSplitSubview(view, desiredRatio: ratio, minimumRatio: minRatio, withHandle: withHandle)
@@ -347,8 +367,52 @@ open class SplitView: UIView {
             break
         case .ended:
             handle.isBeingUsed = false
+            handle.initialOrigin = nil
         default:
             break
+        }
+    }
+}
+
+// MARK: - Ratio
+extension SplitView {
+    /// The current ratio for all the split subviews
+    public var ratios: [CGFloat] {
+        return self.splitSupportingViews.compactMap({ $0.ratio })
+    }
+    
+    /// The minimum ratios for all the split subviews
+    public var minimumRatios: [CGFloat] {
+        return self.splitSupportingViews.compactMap({ $0.minRatio })
+    }
+    
+    /// Set the minimum ratio for a specific view
+    public func setMinimumRatio(_ ratio: CGFloat, for view: UIView) {
+        precondition(minimumRatio >= 0.0, "Ratio must be 0.0 or greater")
+        precondition(minimumRatio < 1.0, "Ratio must be less than 1.0")
+        
+        guard let index = self.splitSubviews.firstIndex(of: view) else {
+            return
+        }
+        
+        self.splitSupportingViews[index].minRatio = ratio
+    }
+}
+
+// MARK: - Stack
+
+extension SplitView {
+    /// A Boolean value that determines whether the split view lays out its split views relative to
+    /// its layout margins.
+    ///
+    /// If `true`, the stack view will layout its split views relative to its layout margins.
+    /// If `false`, it lays out the split views relative to its bounds. The default is `false`.
+    public var isLayoutMarginsRelativeArrangement: Bool {
+        set {
+            stack.isLayoutMarginsRelativeArrangement = newValue
+        }
+        get {
+            return stack.isLayoutMarginsRelativeArrangement
         }
     }
 }
