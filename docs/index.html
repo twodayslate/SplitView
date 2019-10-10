@@ -69,8 +69,6 @@
 <img src="https://github.com/twodayslate/SplitView/raw/master/images/vertical.png" width="25%" alt="Vertical"/> <img src="https://github.com/twodayslate/SplitView/raw/master/images/horizontal.png" width="25%" alt="Horizontal"/>
 </p>
 <h2 id='requirements' class='heading'>Requirements</h2>
-
-<p>iOS 11.0+</p>
 <h3 id='swift-package-manager-spm' class='heading'>Swift Package Manager (SPM)</h3>
 <pre class="highlight plaintext"><code>.Package(url: "https://github.com/twodayslate/SplitView.git", majorVersion: 1)
 </code></pre>
@@ -87,15 +85,15 @@
 </code></pre>
 <h2 id='usage' class='heading'>Usage</h2>
 
-<p>Using SplitView is easy! Simply create a <code><a href="Classes/SplitView.html">SplitView</a></code> and add your views to it - just like a <code>UIStackView</code>.</p>
+<p>Using <code><a href="Classes/SplitView.html">SplitView</a></code> is easy! Simply create a <code><a href="Classes/SplitView.html">SplitView</a></code> and add your views to it - just like a <code>UIStackView</code>.</p>
 <pre class="highlight plaintext"><code>import SplitView
-...
+//
 let mySplitView = SplitView()
 mySplitView.addSplitSubview(myFirstView)
 mySplitView.addSplitSubview(mySecondView)
 </code></pre>
 
-<p>There are certain customizations available including minimum sizing and snapping.</p>
+<p>There are certain customizations available including minimum sizing and snapping. Custom handles are also supported.</p>
 
 <p>Be sure to checkout the <a href="https://github.com/twodayslate/SplitView/tree/master/app">example App</a>.</p>
 

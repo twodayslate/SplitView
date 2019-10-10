@@ -8,8 +8,6 @@ Resizable Split View, inspired by [Apple's Split View](https://support.apple.com
 
 ## Requirements
 
-iOS 11.0+
-
 ### Swift Package Manager (SPM)
 
 ```
@@ -34,16 +32,16 @@ pod 'SplitView', :git => 'https://github.com/twodayslate/SplitView.git'
 
 ## Usage
 
-Using SplitView is easy! Simply create a `SplitView` and add your views to it - just like a `UIStackView`.
+Using `SplitView` is easy! Simply create a `SplitView` and add your views to it - just like a `UIStackView`.
 
 ```
 import SplitView
-...
+//
 let mySplitView = SplitView()
 mySplitView.addSplitSubview(myFirstView)
 mySplitView.addSplitSubview(mySecondView)
 ```
 
-There are certain customizations available including minimum sizing and snapping.
+There are certain customizations available including minimum sizing and snapping. Custom handles are also supported.
 
 Be sure to checkout the [example App](https://github.com/twodayslate/SplitView/tree/master/app).
