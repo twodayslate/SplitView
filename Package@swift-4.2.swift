@@ -1,17 +1,13 @@
-// swift-tools-version:5.1
+// swift-tools-version:4.2
 import PackageDescription
 
 let package = Package(
-	name: "SplitView",
-    platforms: [
-        .iOS(.v9),
-        .macOS(.v10_15)
-    ],
+    name: "SplitView",
     products: [
         .library(name: "SplitView", targets: ["SplitView"])
     ],
-	dependencies: [],
-	targets: [
+    dependencies: [],
+    targets: [
         .target(
             name: "SplitView",
             dependencies: [],
