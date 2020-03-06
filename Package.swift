@@ -3,9 +3,9 @@ import PackageDescription
 
 let package = Package(
 	name: "SplitView",
-	products: [
-		.library(name: "SplitView", targets: ["SplitView"])
-	],
+    products: [
+        .library(name: "SplitView", targets: ["SplitView"])
+    ],
 	dependencies: [],
 	targets: [
         .target(

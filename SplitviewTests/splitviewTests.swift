@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import splitview
+@testable import SplitView
 
 class splitviewTests: XCTestCase {
 

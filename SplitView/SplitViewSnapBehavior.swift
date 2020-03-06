@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A structure that contains a snap point that is percentage based and a tolerance for when to snap
 public struct SplitViewSnapPoint: Equatable {
